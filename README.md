@@ -47,3 +47,5 @@ ToDo
 ====
     
 Package install for Ubuntu.
+Set paths/environment.
+Tests.
