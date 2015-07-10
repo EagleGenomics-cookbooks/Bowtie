@@ -38,7 +38,7 @@ bash 'Install Bowtie' do
 end
 
 execute "find #{node['Bowtie']['install_path']}/#{node['Bowtie']['dirname']} -maxdepth 1 -name 'bowtie*' -executable -type f -exec ln -s {} . \\;" do
-  cwd "{node['Subread']['bin_path']}/bin"
+  cwd "{node['Bowtie']['install_path']}/bin"
 end
 
 log 'Finished Bowtie recipe'
