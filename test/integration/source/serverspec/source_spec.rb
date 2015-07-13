@@ -4,6 +4,10 @@ require_relative 'spec_helper'
 # Required by serverspec
 set :backend, :exec
 
+set :pre_command, 'source /etc/profile'
+
+set :path, '/usr/local/bin/:$PATH'
+
 # grab chef variables
 pseudo_node = PseudoNode.new
 
