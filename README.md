@@ -28,7 +28,8 @@ License and Authors
 
 * Authors:: Daniel Barrell (<daniel.barrell@eaglegenomics.com>)
 * Authors:: Nick James (<nick.james@eaglegenomics.com>)
-    
+* Authors:: Bart Ailey (<bart.ailey@eaglegenomics.com>)
+* 
 Copyright:: 2015, Eagle Genomics.
     
 Licensed under the Apache License, Version 2.0 (the "License");
