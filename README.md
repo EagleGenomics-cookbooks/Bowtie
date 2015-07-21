@@ -45,7 +45,3 @@ limitations under the License.
     
 ToDo
 ====
-    
-Package install for Ubuntu.
-Set paths/environment.
-Tests.
