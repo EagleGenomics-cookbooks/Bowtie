@@ -4,18 +4,7 @@
 #
 # Copyright (c) 2015 Eagle Genomics, All Rights Reserved.
 
-log 'Starting Bowtie recipe'
-
 include_recipe 'build-essential'
-
-# Placed here for use by serverspec
-cookbook_file 'default_attributes.rb' do
-  path '/tmp/default_attributes.rb'
-  action :create
-  owner 'root'
-  group 'root'
-  mode 0755
-end
 
 package 'unzip' do
   action :install
@@ -40,4 +29,7 @@ end
 execute "find #{node['Bowtie']['install_path']}/#{node['Bowtie']['dirname']} -maxdepth 1 -name 'bowtie*' -executable -type f -exec ln -s {}  #{node['Bowtie']['install_path']}/bin \\;" do
 end
 
-log 'Finished Bowtie recipe'
+# here for use by serverspec
+magic_shell_environment 'BOWTIE_VERSION' do
+  value node['Bowtie']['version']
+end
