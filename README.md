@@ -18,7 +18,7 @@ Requirements
 Usage
 =====
 
-Include this recipe to install GMAP.
+Include this recipe to install Bowtie.
 
     include_recipe "Bowtie::source"
     
