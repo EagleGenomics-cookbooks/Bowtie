@@ -7,6 +7,8 @@ Cookbook for installing Bowtie, an ultrafast, memory-efficient short read aligne
 
 Installs a specific vesion of Bowtie, mainly to support deFuse on RHEL 6.5.
 
+http://jenkins.eaglegenomics.com:8080/job/Chef%20Bowtie/1/badge/icon
+
 Requirements
 ============
 
