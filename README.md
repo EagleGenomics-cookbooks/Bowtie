@@ -9,6 +9,8 @@ Installs a specific vesion of Bowtie, mainly to support deFuse on RHEL 6.5.
 
 http://jenkins.eaglegenomics.com:8080/job/Chef%20Bowtie/1/badge/icon
 
+[![Build Status](http://jenkins.eaglegenomics.com:8080/job/Chef%20Bowtie/1/badge/icon)](http://jenkins.eaglegenomics.com:8080/job/Chef%20Bowtie/1/)
+
 Requirements
 ============
 
