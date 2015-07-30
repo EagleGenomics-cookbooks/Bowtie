@@ -11,6 +11,8 @@ http://jenkins.eaglegenomics.com:8080/job/Chef%20Bowtie/1/badge/icon
 
 [![Build Status](http://jenkins.eaglegenomics.com:8080/job/Chef%20Bowtie/1/badge/icon)](http://jenkins.eaglegenomics.com:8080/job/Chef%20Bowtie/1/)
 
+<a href='http://jenkins.eaglegenomics.com:8080/job/Chef%20Bowtie/1/'><img src='http://jenkins.eaglegenomics.com:8080/job/Chef%20Bowtie/1/badge/icon'></a>
+
 Requirements
 ============
 
