@@ -1,4 +1,4 @@
-# Bowtie [![Build Status](http://jenkins.eaglegenomics.com:8080/buildStatus/icon?job=ChefBowtie)](http://jenkins.eaglegenomics.com:8080/job/ChefBowtie)
+# Bowtie
 
 Description
 ===========
