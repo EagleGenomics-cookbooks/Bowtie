@@ -5,7 +5,7 @@ Description
 
 Cookbook for installing Bowtie, an ultrafast, memory-efficient short read aligner for short DNA sequences (reads) from next-gen sequencers. http://bowtie-bio.sourceforge.net/
 
-Installs a specific vesion of Bowtie, mainly to support deFuse on RHEL 6.5.
+Installs a specific version of Bowtie, mainly to support deFuse on RHEL 6.6.
 
 Requirements
 ============
