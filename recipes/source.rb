@@ -6,7 +6,7 @@
 ##########################################################
 # package install
 
-package ['zlib-devel', 'tar', 'make', 'unzip', 'epel-release'] do
+package ['zlib-devel', 'tar', 'unzip', 'epel-release'] do
   action :install
 end
 
