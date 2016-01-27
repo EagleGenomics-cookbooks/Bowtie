@@ -1,7 +1,7 @@
 name 'Bowtie'
 maintainer 'Eagle Genomics'
 maintainer_email 'chef@eaglegenomics.com'
-license 'Apache2'
+license 'Apache v2.0'
 description 'Installs/Configures Bowtie'
 long_description 'Installs/Configures Bowtie'
 version '1.0.0'
