@@ -27,6 +27,10 @@ include_recipe 'build-essential'
 
 ##########################################################
 
+node.default['Bowtie']['dirname'] = "bowtie-#{node['Bowtie']['version']}"
+node.default['Bowtie']['filename'] = "bowtie-#{node['Bowtie']['version']}-src.zip"
+node.default['Bowtie']['url'] = "http://sourceforge.net/projects/bowtie-bio/files/bowtie/#{node['Bowtie']['version']}/#{node['Bowtie']['filename']}"
+
 remote_file "#{Chef::Config[:file_cache_path]}/#{node['Bowtie']['filename']}" do
   source node['Bowtie']['url']
 end
