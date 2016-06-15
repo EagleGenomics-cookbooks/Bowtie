@@ -4,15 +4,22 @@
 #
 # Copyright (c) 2016 Eagle Genomics Ltd, Apache License, Version 2.0.
 ##########################################################
-# package install
 
-package ['zlib-devel', 'tar', 'unzip', 'epel-release'] do
-  action :install
+package ['zlib-devel', 'tar', 'unzip', 'epel-release']
+
+if node['platform'] == 'centos' && node['platform_version'] =~ /^7\./
+  # Pre-load compatible llvm-libs version before we encounter epel/extras conflicts with clang
+  # Package: llvm-3.4.2-7.el7.x86_64 (extras)
+  # Requires: llvm-libs(x86-64) = 3.4.2-7.el7
+  # manual install of clang uses 3.4.2-8 and epel successfully
+  # but package 'clang' uses extras llvm 3.4.2-7 and then epel lbvm-libs 3.4.2-8?!
+  # somehow package 'clang' forces older release of llvm only
+  execute 'yum -y install llvm-libs-3.4.2-7.el7'
+  # package cannot handle the version-release in the name
+  # and does not support release at all?
 end
 
-package ['clang'] do
-  action :install
-end
+package 'clang'
 
 ##########################################################
 
