@@ -6,11 +6,17 @@
 ##########################################################
 # package install
 
-package ['zlib-devel', 'tar', 'unzip', 'epel-release'] do
-  action :install
+if node['platform_family'] == 'debian'
+  package ['zlib1g-dev'] do
+    action :install
+  end
+elsif node['platform_family'] == 'rhel'
+  package ['zlib-devel', 'epel-release'] do
+    action :install
+  end
 end
 
-package ['clang'] do
+package %w(clang tar unzip) do
   action :install
 end
 
