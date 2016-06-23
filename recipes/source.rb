@@ -4,7 +4,6 @@
 #
 # Copyright (c) 2016 Eagle Genomics Ltd, Apache License, Version 2.0.
 ##########################################################
-# package install
 
 if node['platform_family'] == 'debian'
   package ['zlib1g-dev'] do
@@ -13,6 +12,17 @@ if node['platform_family'] == 'debian'
 elsif node['platform_family'] == 'rhel'
   package ['zlib-devel', 'epel-release'] do
     action :install
+  end
+  if node['platform'] == 'centos' && node['platform_version'] =~ /^7\./
+    # Pre-load compatible llvm-libs version before we encounter epel/extras conflicts with clang
+    # Package: llvm-3.4.2-7.el7.x86_64 (extras)
+    # Requires: llvm-libs(x86-64) = 3.4.2-7.el7
+    # manual install of clang uses 3.4.2-8 and epel successfully
+    # but package 'clang' uses extras llvm 3.4.2-7 and then epel lbvm-libs 3.4.2-8?!
+    # somehow package 'clang' forces older release of llvm only
+    execute 'yum -y install llvm-libs-3.4.2-7.el7'
+    # package cannot handle the version-release in the name
+    # and does not support release at all?
   end
 end
 
@@ -25,6 +35,11 @@ end
 include_recipe 'build-essential'
 
 ##########################################################
+
+name = node['Bowtie']['version'] =~ /^2/ ? 'bowtie2' : 'bowtie'
+node.default['Bowtie']['filename'] = "#{name}-#{node['Bowtie']['version']}-src.zip"
+node.default['Bowtie']['dirname'] = "#{name}-#{node['Bowtie']['version']}"
+node.default['Bowtie']['url'] = "http://sourceforge.net/projects/bowtie-bio/files/#{name}/#{node['Bowtie']['version']}/#{node['Bowtie']['filename']}"
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{node['Bowtie']['filename']}" do
   source node['Bowtie']['url']
