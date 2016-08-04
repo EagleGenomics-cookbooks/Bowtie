@@ -4,7 +4,7 @@ maintainer_email 'chef@eaglegenomics.com'
 license 'Apache v2.0'
 description 'Installs/Configures Bowtie'
 long_description 'Installs/Configures Bowtie'
-version '1.0.3'
+version '1.0.4'
 
 source_url 'https://github.com/EagleGenomics-cookbooks/Bowtie'
 issues_url 'https://github.com/EagleGenomics-cookbooks/Bowtie/issues'
