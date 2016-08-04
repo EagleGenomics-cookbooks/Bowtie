@@ -1,9 +1,3 @@
-require 'serverspec'
-require_relative 'spec_helper'
-
-# Required by serverspec
-set :backend, :exec
-
 # tests for executables
 %w(bowtie-inspect-s bowtie-align-l bowtie-align-s bowtie-build-l bowtie-build-s bowtie bowtie-build
    bowtie-inspect).each do |file_executable|
@@ -12,6 +6,6 @@ set :backend, :exec
   end
 
   describe command("#{file_executable} --version") do
-    its(:stdout) { should contain(ENV['BOWTIE_VERSION']) }
+    its(:stdout) { should match(/1.1.1/) }
   end
 end
