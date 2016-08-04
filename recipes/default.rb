@@ -35,28 +35,35 @@ include_recipe 'build-essential'
 
 ##########################################################
 
-name = node['Bowtie']['version'] =~ /^2/ ? 'bowtie2' : 'bowtie'
-node.default['Bowtie']['filename'] = "#{name}-#{node['Bowtie']['version']}-src.zip"
-node.default['Bowtie']['dirname'] = "#{name}-#{node['Bowtie']['version']}"
-node.default['Bowtie']['url'] = "http://sourceforge.net/projects/bowtie-bio/files/#{name}/#{node['Bowtie']['version']}/#{node['Bowtie']['filename']}"
+bowtie_version = node['Bowtie']['version']
+bowtie_name = 'bowtie'
+bowtie_base_name = "#{bowtie_name}-#{bowtie_version}"
+bowtie_file_name = "#{bowtie_base_name}-src.zip"
+# override the bowtie_name and bowtie_file_name for bowtie2
+if bowtie_version =~ /^2/
+  bowtie_name = 'bowtie2'
+  bowtie_base_name = "#{bowtie_name}-#{bowtie_version}"
+  bowtie_file_name = "#{bowtie_base_name}-source.zip"
+end
+bowtie_download_url = "http://sourceforge.net/projects/bowtie-bio/files/#{bowtie_name}/#{bowtie_version}/#{bowtie_file_name}"
 
-remote_file "#{Chef::Config[:file_cache_path]}/#{node['Bowtie']['filename']}" do
-  source node['Bowtie']['url']
+remote_file "#{Chef::Config[:file_cache_path]}/#{bowtie_file_name}" do
+  source bowtie_download_url
 end
 
-execute "Unzip #{node['Bowtie']['filename']}" do
-  command "unzip #{node['Bowtie']['filename']} -d #{node['Bowtie']['install_path']}"
+execute "Unzip #{bowtie_file_name}" do
+  command "unzip #{bowtie_file_name} -d #{node['Bowtie']['install_path']}"
   cwd Chef::Config[:file_cache_path]
-  not_if { ::File.exist?("#{node['Bowtie']['install_path']}/#{node['Bowtie']['dirname']}") }
+  not_if { ::File.exist?("#{node['Bowtie']['install_path']}/#{bowtie_base_name}") }
 end
 
 bash 'Install Bowtie' do
-  cwd "#{node['Bowtie']['install_path']}/#{node['Bowtie']['dirname']}"
+  cwd "#{node['Bowtie']['install_path']}/#{bowtie_base_name}"
   code 'make'
-  not_if { ::File.exist?("#{node['Bowtie']['install_path']}/#{node['Bowtie']['dirname']}/bowtie-build-l") }
+  not_if { ::File.exist?("#{node['Bowtie']['install_path']}/#{bowtie_base_name}/bowtie-build-l") }
 end
 
-execute "find #{node['Bowtie']['install_path']}/#{node['Bowtie']['dirname']} -maxdepth 1 -name 'bowtie*' -executable -type f -exec ln -s {}  #{node['Bowtie']['install_path']}/bin \\;" do
+execute "find #{node['Bowtie']['install_path']}/#{bowtie_base_name} -maxdepth 1 -name 'bowtie*' -executable -type f -exec ln -s {}  #{node['Bowtie']['install_path']}/bin \\;" do
 end
 
 ##########################################################
