@@ -15,3 +15,4 @@ supports 'ubuntu', '= 14.04'
 
 depends 'build-essential'
 depends 'magic_shell'
+depends 'apt'
