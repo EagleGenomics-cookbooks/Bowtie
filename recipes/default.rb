@@ -67,11 +67,13 @@ end
 execute "find #{node['Bowtie']['install_path']}/#{bowtie_base_name} -maxdepth 1 -name 'bowtie*' -executable -type f -exec ln -s {}  #{node['Bowtie']['install_path']}/bin \\;" do
 end
 
-##########################################################
-# here for use by serverspecs
-
+# record the tool version for report generation
 magic_shell_environment 'BOWTIE_VERSION' do
   value node['Bowtie']['version']
 end
 
-##########################################################
+# put the install location onto the PATH, so other tools can reuse it
+magic_shell_environment 'PATH' do
+  filename 'bowtie_path'
+  value "$PATH:#{node['Bowtie']['install_path']}/#{bowtie_base_name}"
+end
