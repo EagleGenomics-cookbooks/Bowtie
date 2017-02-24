@@ -75,6 +75,6 @@ end
 
 # put the install location onto the PATH, so other tools can reuse it
 magic_shell_environment 'PATH' do
-  filename 'bowtie_path'
+  # filename 'bowtie_path'
   value "$PATH:#{node['Bowtie']['install_path']}/#{bowtie_base_name}"
 end
