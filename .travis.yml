@@ -1,21 +1,10 @@
 sudo: required
 dist: trusty
-
-addons:
-  apt:
-    sources:
-    - chef-stable-trusty
-    packages:
-    - chefdk
-
 install: echo "skip bundle install"
-
 branches:
   only:
   - master
-
 services: docker
-
 env:
   global:
   - RUBYOPT="-W0"
@@ -26,17 +15,14 @@ env:
   - CHEF_VERSION=current INSTANCE=bowtie2-ubuntu-1404
   - CHEF_VERSION=current INSTANCE=bowtie2-centos-65
   - CHEF_VERSION=current INSTANCE=bowtie2-centos-70
-
 before_script:
 - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables
   -N DOCKER )
 - eval "$(/opt/chefdk/bin/chef shell-init bash)"
 - chef gem install kitchen-docker
-- "/opt/chefdk/bin/chef exec rake tests"
-
+- /opt/chefdk/bin/chef exec rake tests
 script:
 - KITCHEN_LOCAL_YAML=.kitchen.docker.yml /opt/chefdk/embedded/bin/kitchen verify ${INSTANCE}
-
 notifications:
   slack:
     on_success: change
