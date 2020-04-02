@@ -35,13 +35,9 @@ package %w(clang tar unzip) do
   action :install
 end
 
-##########################################################
-
 build_essential 'install essential' do
   action :install
 end
-
-##########################################################
 
 bowtie_version = node['Bowtie']['version']
 bowtie_name = 'bowtie'

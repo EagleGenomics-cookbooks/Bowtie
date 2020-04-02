@@ -19,10 +19,6 @@ describe 'Bowtie::default' do
       expect { chef_run }.to_not raise_error
     end
 
-    it 'includes the `build-essential` recipe' do
-      expect(chef_run).to include_recipe('build-essential')
-    end
-
     it 'installs clang, tar, unzip' do
       expect(chef_run).to install_package 'clang, tar, unzip'
     end
