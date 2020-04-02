@@ -18,7 +18,7 @@ describe 'Bowtie::default' do
     it 'converges successfully' do
       expect { chef_run }.to_not raise_error
     end
-    
+
     it 'includes the `build-essential` recipe' do
       expect(chef_run).to include_recipe('build-essential')
     end

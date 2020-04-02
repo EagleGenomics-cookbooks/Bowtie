@@ -37,7 +37,6 @@ build_essential 'install essential' do
   action :install
 end
 
-
 ##########################################################
 
 bowtie_version = node['Bowtie']['version']
