@@ -3,7 +3,7 @@
 # Recipe:: default
 #
 # Copyright (c) 2016 Eagle Genomics Ltd, Apache License, Version 2.0.
-include_recipe 'apt' if node['platform_family'] == 'debian'
+apt_update if node['platform_family'] == 'debian'
 include_recipe 'locale' if node['platform_family'] == 'debian'
 
 if node['platform_family'] == 'debian'

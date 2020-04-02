@@ -14,5 +14,4 @@ supports 'centos', '= 7.0'
 supports 'ubuntu', '= 14.04'
 
 depends 'magic_shell'
-depends 'apt'
 depends 'locale'
