@@ -1,33 +1,30 @@
-sudo: required
-dist: trusty
+dist: xenial
+
+before_install:
+  - wget https://packages.chef.io/files/stable/chefdk/3.7.23/ubuntu/16.04/chefdk_3.7.23-1_amd64.deb
+  - sudo dpkg -i chefdk_3.7.23-1_amd64.deb
+  - chef --version
+
 install: echo "skip bundle install"
+
 branches:
   only:
   - master
-services: docker
+
 env:
-  global:
-  - RUBYOPT="-W0"
   matrix:
-  - CHEF_VERSION=current INSTANCE=bowtie-ubuntu-1404
-  - CHEF_VERSION=current INSTANCE=bowtie-centos-65
-  - CHEF_VERSION=current INSTANCE=bowtie-centos-70
-  - CHEF_VERSION=current INSTANCE=bowtie2-ubuntu-1404
-  - CHEF_VERSION=current INSTANCE=bowtie2-centos-65
-  - CHEF_VERSION=current INSTANCE=bowtie2-centos-70
+  - INSTANCE=bowtie-ubuntu-1804
+  - INSTANCE=bowtie2-ubuntu-1804
+
 before_script:
 - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables
   -N DOCKER )
 - eval "$(/opt/chefdk/bin/chef shell-init bash)"
 - chef gem install kitchen-docker
 - /opt/chefdk/bin/chef exec rake tests
+
 script:
-- KITCHEN_LOCAL_YAML=.kitchen.docker.yml /opt/chefdk/embedded/bin/kitchen verify ${INSTANCE}
-notifications:
-  slack:
-    on_success: change
-    on_failure: change
-    secure: n+5HoXYG0gT/wEcqjFe3EXcADAbA+/+yRrrapxwFBw7R80X27sgq/svIQV6tTFzMlJUjvi2P5O8rsuIncWxe89anBE+Fau/jYponakjTbaZBY4IzK8TNxw3tfJ1ex5aWMcIlfaeZEbfDcWsLPB5ewGaPtFAWMasAnlK+U5fMt1jUWfUyskj9BrBC+P9llK9DkHxMVFk+8oddEyfax7nyB4z4dzj1MEku+FeJFTj9V6+iRjTxk7hDs6ReXZCFk2FqyxOvenEAadZuR+6cE8kkg1hM48BlyEKroQfAc8/3wZ9spDYiMQYgMF38UtfEFUaPZD4dNZA3JjgpdggMk6RUK0uECzQrPx4s/a4qMMWT2MMljp2ie32jK3SBs43eGsBA3X/Q1kisrxVF7iCNzg6OErYN9Yp7tdCGoUzj4BMzyC3j9wyDDOQMqVIeQ8F20Tlfdz3W78HJB94dI5oiZKHA9Rc+iVCYrGeOEIVn+EHie7fqPIeULTPaHA3ez0/+XtNSBTxVE+eciv1NHFUYVAqUN+z3tU75ahDoJBvRe6m1KisJzXYpy9R2/xj9sOPHAYXQYkjBVhZ5XbngE9+GvRCLl0zjt8Wc6leM7wnxrHENdaIYIJMaCsRnxUno71eKJMC6gWaXX0SIC4mB9RBJsQsZ6bV4CgPQvYJFQnOknalVjxc=
-  email:
-    on_success: change
-    on_failure: change
+- /opt/chefdk/embedded/bin/kitchen verify ${INSTANCE}
+
+after_script:
+- /opt/chefdk/embedded/bin/kitchen destroy ${INSTANCE}

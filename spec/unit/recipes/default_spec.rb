@@ -1,22 +1,24 @@
 #
-# Cookbook Name:: Bowtie
+# Cookbook:: Bowtie
 # Spec:: default
 #
-# Copyright (c) 2016 Eagle Genomics Ltd, Apache License, Version 2.0.
+# Copyright:: 2019, The Authors, All Rights Reserved.
 
 require 'spec_helper'
 
 describe 'Bowtie::default' do
-  context 'When all attributes are default, on an unspecified platform' do
+  context 'When all attributes are default, on Ubuntu 18.04' do
     let(:chef_run) do
-      runner = ChefSpec::ServerRunner.new
+      # for a complete list of available platforms and versions see:
+      # https://github.com/customink/fauxhai/blob/master/PLATFORMS.md
+      runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '18.04')
       runner.converge(described_recipe)
     end
 
     it 'converges successfully' do
-      chef_run # This should not raise an error
+      expect { chef_run }.to_not raise_error
     end
-
+    
     it 'includes the `build-essential` recipe' do
       expect(chef_run).to include_recipe('build-essential')
     end
