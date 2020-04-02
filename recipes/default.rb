@@ -33,7 +33,10 @@ end
 
 ##########################################################
 
-include_recipe 'build-essential'
+build_essential 'install essential' do
+  action :install
+end
+
 
 ##########################################################
 
