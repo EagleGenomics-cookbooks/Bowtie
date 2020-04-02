@@ -4,7 +4,11 @@
 #
 # Copyright:: 2019, Eagle Genomics Ltd, All Rights Reserved.
 apt_update if node['platform_family'] == 'debian'
-include_recipe 'locale' if node['platform_family'] == 'debian'
+
+locale 'set locale' do
+  lang node['locale']['lang']
+  lc_all node['locale']['lc_all']
+end
 
 if node['platform_family'] == 'debian'
   package ['zlib1g-dev'] do
